@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Dibu Studios is an independent game studio creating focused, replayable games with a strong visual identity.">
+  <meta name="theme-color" content="#0b0d10">
+  <meta property="og:title" content="Dibu Studios">
+  <meta property="og:description" content="Small games. Clear ideas. Built to be replayed.">
+  <meta property="og:type" content="website">
+  <title>Dibu Studios</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="presentation-page">
+  <header class="site-header">
+    <div class="nav-shell">
+      <a class="brand panel-link" href="#home" data-panel="home" aria-label="Dibu Studios home">
+        <img src="logo.png" alt="Dibu Studios" width="1080" height="1080">
+      </a>
+      <nav aria-label="Primary navigation">
+        <a class="panel-link" href="#home" data-panel="home">Home</a>
+        <a class="panel-link" href="#games" data-panel="games">Games</a>
+        <a class="panel-link" href="#about" data-panel="about">About</a>
+        <a class="panel-link" href="#contact" data-panel="contact">Contact</a>
+      </nav>
+      <a class="contact-button" href="mailto:dibustudiosofficial@gmail.com?subject=Dibu%20Studios%20Website%20Contact">Get in touch</a>
+    </div>
+  </header>
+
+  <main class="stage" aria-live="polite">
+    <section class="panel panel-home is-active" id="home" data-panel-index="0" aria-labelledby="home-title">
+      <div class="panel-background" aria-hidden="true"></div>
+      <div class="panel-shade" aria-hidden="true"></div>
+      <div class="panel-content home-content">
+        <h1 id="home-title">GAME STUDIO</h1>
+        <p class="home-statement">Small games. Clear ideas. Built to be replayed.</p>
+      </div>
+    </section>
+
+    <section class="panel panel-games" id="games" data-panel-index="1" aria-labelledby="games-title" aria-hidden="true">
+      <div class="panel-background" aria-hidden="true"></div>
+      <div class="panel-shade" aria-hidden="true"></div>
+      <div class="panel-content games-content">
+        <div class="games-heading">
+          <p class="panel-kicker">Featured Game</p>
+          <h2 id="games-title">CIRCULATE</h2>
+          <p class="game-type">Reflex Arcade</p>
+        </div>
+        <div class="games-copy">
+          <p class="game-description">A fast-paced reflex arcade game built around timing, precision, streaks, and score chasing.</p>
+          <p class="game-metadata">One-touch gameplay <span>&middot;</span> Global leaderboards <span>&middot;</span> Coin progression <span>&middot;</span> Cosmetic cursor skins</p>
+          <p class="platforms">iOS <span>&middot;</span> Android</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel panel-about" id="about" data-panel-index="2" aria-labelledby="about-title" aria-hidden="true">
+      <div class="panel-background" aria-hidden="true"></div>
+      <div class="panel-shade" aria-hidden="true"></div>
+      <div class="panel-content about-content">
+        <p class="panel-kicker">The Studio</p>
+        <h2 id="about-title">ABOUT</h2>
+        <p>Dibu Studios is an independent game studio creating focused games built around simple mechanics, strong visual identity, and replayability.</p>
+      </div>
+    </section>
+
+    <section class="panel panel-contact" id="contact" data-panel-index="3" aria-labelledby="contact-title" aria-hidden="true">
+      <div class="panel-background" aria-hidden="true"></div>
+      <div class="panel-content contact-content">
+        <header class="contact-heading">
+          <p class="panel-kicker">Start a conversation</p>
+          <h2 id="contact-title">CONTACT</h2>
+          <a href="mailto:dibustudiosofficial@gmail.com">dibustudiosofficial@gmail.com</a>
+        </header>
+
+        <form id="contact-form" action="mailto:dibustudiosofficial@gmail.com?subject=Dibu%20Studios%20Website%20Contact" method="post" enctype="text/plain">
+          <div class="field-row">
+            <div class="field">
+              <label for="contact-name">Name</label>
+              <input id="contact-name" name="name" type="text" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="contact-email">Email</label>
+              <input id="contact-email" name="email" type="email" autocomplete="email" required>
+            </div>
+          </div>
+          <div class="field">
+            <label for="contact-message">Message</label>
+            <textarea id="contact-message" name="message" rows="4" required></textarea>
+          </div>
+          <button type="submit">Submit <span aria-hidden="true">&#8599;</span></button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <div class="scene-rail" role="navigation" aria-label="Presentation sections">
+    <button class="scene-dot panel-link is-active" type="button" data-panel="home" aria-label="Home">
+      <span class="sr-only">Home</span>
+    </button>
+    <button class="scene-dot panel-link" type="button" data-panel="games" aria-label="Games">
+      <span class="sr-only">Games</span>
+    </button>
+    <button class="scene-dot panel-link" type="button" data-panel="about" aria-label="About">
+      <span class="sr-only">About</span>
+    </button>
+    <button class="scene-dot panel-link" type="button" data-panel="contact" aria-label="Contact">
+      <span class="sr-only">Contact</span>
+    </button>
+  </div>
+
+  <div class="presentation-footer">
+    <a href="privacy.html">Privacy Policy</a>
+    <p>&copy; 2026 Dibu Studios</p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
