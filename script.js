@@ -5,6 +5,7 @@
   const panels = Array.from(document.querySelectorAll(".panel"));
   const panelLinks = Array.from(document.querySelectorAll(".panel-link"));
   const stage = document.querySelector(".stage");
+  const menuButton = document.querySelector(".menu-button");
   const contactForm = document.getElementById("contact-form");
   const exitDuration = 240;
   const enterDuration = 300;
@@ -14,6 +15,14 @@
   let queuedPanelId = null;
   let wheelLocked = false;
   let touchStartY = null;
+  let touchStartX = null;
+  let touchStartScrollY = 0;
+
+  function setMenuOpen(isOpen) {
+    document.body.classList.toggle("menu-open", isOpen);
+    menuButton.setAttribute("aria-expanded", String(isOpen));
+    menuButton.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
+  }
 
   function normalizePanelId(value) {
     const id = value.replace(/^#/, "");
@@ -68,6 +77,7 @@
   function transitionToPanel(panelId, updateHistory) {
     const nextId = normalizePanelId(panelId);
     const nextIndex = panelIds.indexOf(nextId);
+    setMenuOpen(false);
 
     if (updateHistory && window.location.hash !== "#" + nextId) {
       window.history.pushState(null, "", "#" + nextId);
@@ -123,8 +133,19 @@
   panelLinks.forEach(function (link) {
     link.addEventListener("click", function (event) {
       event.preventDefault();
+      setMenuOpen(false);
       transitionToPanel(link.dataset.panel, true);
     });
+  });
+
+  menuButton.addEventListener("click", function () {
+    setMenuOpen(!document.body.classList.contains("menu-open"));
+  });
+
+  stage.addEventListener("pointerdown", function () {
+    if (document.body.classList.contains("menu-open")) {
+      setMenuOpen(false);
+    }
   });
 
   window.addEventListener("hashchange", function () {
@@ -132,6 +153,12 @@
   });
 
   window.addEventListener("keydown", function (event) {
+    if (event.key === "Escape" && document.body.classList.contains("menu-open")) {
+      setMenuOpen(false);
+      menuButton.focus();
+      return;
+    }
+
     if (event.target.matches("input, textarea")) {
       return;
     }
@@ -165,7 +192,8 @@
   }, { passive: false });
 
   stage.addEventListener("touchmove", function (event) {
-    if (!event.target.closest("input, textarea")) {
+    const activeContact = document.querySelector(".panel-contact.is-active");
+    if (!event.target.closest("input, textarea") && !activeContact) {
       event.preventDefault();
     }
   }, { passive: false });
@@ -173,21 +201,39 @@
   stage.addEventListener("touchstart", function (event) {
     if (!event.target.closest("input, textarea, button")) {
       touchStartY = event.changedTouches[0].clientY;
+      touchStartX = event.changedTouches[0].clientX;
+      touchStartScrollY = document.querySelector(".panel-contact.is-active")?.scrollTop || 0;
     }
   }, { passive: true });
 
   stage.addEventListener("touchend", function (event) {
     if (touchStartY === null || transitionLocked) {
       touchStartY = null;
+      touchStartX = null;
       return;
     }
 
-    const distance = touchStartY - event.changedTouches[0].clientY;
+    const distanceY = touchStartY - event.changedTouches[0].clientY;
+    const distanceX = touchStartX - event.changedTouches[0].clientX;
+    const activeContact = document.querySelector(".panel-contact.is-active");
+    const contactScrolled = activeContact && Math.abs(activeContact.scrollTop - touchStartScrollY) > 2;
     touchStartY = null;
-    if (Math.abs(distance) > 55) {
-      movePanel(distance > 0 ? 1 : -1);
+    touchStartX = null;
+    if (!contactScrolled && Math.abs(distanceY) > 55 && Math.abs(distanceY) > Math.abs(distanceX) * 1.2) {
+      movePanel(distanceY > 0 ? 1 : -1);
     }
   }, { passive: true });
+
+  stage.addEventListener("touchcancel", function () {
+    touchStartY = null;
+    touchStartX = null;
+  }, { passive: true });
+
+  window.addEventListener("resize", function () {
+    if (window.innerWidth > 620) {
+      setMenuOpen(false);
+    }
+  });
 
   contactForm.addEventListener("submit", function (event) {
     event.preventDefault();
