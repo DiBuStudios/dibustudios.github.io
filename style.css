@@ -257,7 +257,14 @@ nav a.is-active::after {
   padding: 132px 0 94px;
 }
 
+.platforms a {
+  color: inherit;
+  text-decoration: none;
+}
 
+.platforms a:hover {
+  text-decoration: underline;
+}
 
 
 .panel-content h1,
